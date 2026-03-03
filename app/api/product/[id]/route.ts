@@ -9,8 +9,6 @@ export async function GET(
   try {
     const { id } = await params;
 
-    console.log("paroduct id", id)
-
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_SECRET_KEY!

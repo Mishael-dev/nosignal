@@ -23,7 +23,6 @@ const { id } = await params;
 
  const res = await fetch(process.env.NEXT_PUBLIC_APP_URL +'/api/product/' + id)
   const data = await res.json()
-  console.log(data.product)
   const {product} = data
 
  return <main>

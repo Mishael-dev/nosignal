@@ -20,15 +20,7 @@ export type Product = {
 };
 
 const ProductDetailCard = ({ product }: { product: Product }) => {
-  console.log("product from porduct detail card", product)
   const [quantity, setQuantity] = useState(1);
-
-  const handleAddToCart = () => {
-    console.log("what the actual fuck")
-    
-          toast("Event has been created", { position: "top-left" })
-    
-  };
 
   return (
       <main className="mx-auto max-w-7xl px-6 py-10">
@@ -83,8 +75,8 @@ const ProductDetailCard = ({ product }: { product: Product }) => {
 
             {/* Add to Cart */}
             <button
-               onClick={() =>
-         {console.log("how far"),  toast.success(`Added ${quantity}x ${product.name} (${product.size}) to cart`)}
+              onClick={() =>{
+           toast.success(`Added ${quantity}x ${product.name} (${product.size}) to cart`)}
         }
               className="w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-white transition-opacity hover:opacity-80"
             >
