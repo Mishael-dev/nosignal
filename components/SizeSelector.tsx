@@ -1,4 +1,4 @@
-import type { ProductSize } from "@/types/product";
+import { ProductSize } from "./ProductDetailCard";
 
 const SIZES: ProductSize[] = ["S", "M", "L", "XL"];
 

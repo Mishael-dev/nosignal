@@ -6,29 +6,6 @@ import ProductCard from "./ProductCard";
 import { Slider } from "@/components/ui/slider";
 import type { Product } from "./ProductDetailCard";
 
-const dummyProductss: Product[] = [{
-    id: "1",
-    name: "Oversized Crew Neck T-Shirt",
-    price: 7900,
-    color: "#FFC0CB",
-    pictures: ["https://i.pinimg.com/736x/89/7a/56/897a56701abfd7c79cc03310e71fef14.jpg"],
-    description: "A relaxed-fit crew neck t-shirt crafted from premium cotton.",
-    size: "M",
-    stock_quantity: 24,
-    created_at: "2024-01-01T00:00:00Z",
-  },
-  {
-    id: "2",
-    name: "Oversized Crew Neck T-Shirt",
-    price: 7900,
-    color: "#FFFFFF",
-    pictures: ["https://i.pinimg.com/736x/89/7a/56/897a56701abfd7c79cc03310e71fef14.jpg"],
-    description: "A relaxed-fit crew neck t-shirt crafted from premium cotton.",
-    size: "L",
-    stock_quantity: 12,
-    created_at: "2024-01-02T00:00:00Z",
-  },]
-
 const MIN_PRICE = 0;
 const MAX_PRICE = 30000;
 

@@ -1,9 +1,9 @@
 import ProductsSection from "@/components/ProductsSection";
+import { getProducts } from "@/lib/db/products";
 
 export default async function Page(){
     
- const res = await fetch(process.env.NEXT_PUBLIC_APP_URL +'/api/products')
-  const data = await res.json()
+ const data = await getProducts();
     return (<div>
         <ProductsSection products={data} />
         </div>);

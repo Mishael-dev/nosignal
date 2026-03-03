@@ -1,4 +1,5 @@
 import ProductDetailCard from "@/components/ProductDetailCard";
+import { getProductById } from "@/lib/db/products";
 
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 
@@ -21,9 +22,7 @@ export default async function Page({
 }) {
 const { id } = await params;
 
- const res = await fetch(process.env.NEXT_PUBLIC_APP_URL +'/api/product/' + id)
-  const data = await res.json()
-  const {product} = data
+const product = await getProductById(id);
 
  return <main>
     <ProductDetailCard product={product} />
