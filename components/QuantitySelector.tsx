@@ -1,3 +1,4 @@
+'use client'
 import { Minus, Plus } from "lucide-react";
 
 interface QuantitySelectorProps {

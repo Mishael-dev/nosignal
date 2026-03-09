@@ -4,6 +4,8 @@ import { Heart, Share2 } from "lucide-react";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import QuantitySelector from "@/components/QuantitySelector";
 import {toast} from "sonner"
+import { addToCart } from "@/lib/db/order"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 
@@ -21,13 +23,14 @@ export type Product = {
 
 const ProductDetailCard = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
+  
+  const { data: session } = useSession();
 
   return (
       <main className="mx-auto max-w-7xl px-6 py-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Left - Images */}
           <ProductImageGallery images={product.pictures} productName={product.name} />
-
           {/* Right - Info */}
           <div className="flex flex-col gap-8 lg:pt-2">
             {/* Title & Actions */}
@@ -75,9 +78,16 @@ const ProductDetailCard = ({ product }: { product: Product }) => {
 
             {/* Add to Cart */}
             <button
-              onClick={() =>{
-           toast.success(`Added ${quantity}x ${product.name} (${product.size}) to cart`)}
-        }
+              onClick={() =>
+    toast.promise(
+      addToCart(session?.user?.id!, product.id, quantity),
+      {
+        loading: "Adding to cart...",
+        success: `Added ${quantity}x ${product.name} (${product.size})`,
+        error: "Failed to add item"
+      }
+    )
+  }
               className="w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-white transition-opacity hover:opacity-80"
             >
               Add to Cart

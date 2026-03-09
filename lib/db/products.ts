@@ -18,7 +18,6 @@ export async function getProductById(id: string) {
   return data;
 }
 
-
 export async function getProducts() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
