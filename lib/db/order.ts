@@ -38,7 +38,6 @@ export async function addToCart(
         status: "pending",
         payment_status: "unpaid",
         total_amount: 0,
-        address: "pending"
       })
       .select("id")
       .single()
@@ -49,6 +48,28 @@ export async function addToCart(
 
     orderId = newOrder.id
   }
+
+   // 3️⃣ Check if item already exists in cart
+  const { data: existingItem, error: checkError } = await supabase
+    .from("order_items")
+    .select("id")
+    .eq("order_id", orderId)
+    .eq("product_id", productId)
+    .maybeSingle();
+
+  if (checkError) {
+    throw new Error(checkError.message);
+  }
+
+  // 4️⃣ If item already exists, do nothing
+  if (existingItem) {
+    return {
+      success: false,
+      message: "Item already in cart",
+      orderId,
+    };
+  }
+
 
   // 3️⃣ Insert cart item
   const { error: itemError } = await supabase
@@ -65,8 +86,6 @@ export async function addToCart(
 
   return { success: true, orderId }
 }
-
-
 
 export async function getCartItems(userId: string) {
   const supabase = createClient(
@@ -110,7 +129,6 @@ export async function getCartItems(userId: string) {
   }));
   return cartItems
 }
-
 
 export async function removeFromCart(userId: string, orderItemId: string) {
   const supabase = createClient(
@@ -277,4 +295,129 @@ export async function clearCartItems(userId: string) {
 
   // 3️⃣ Safe check: deletedItems may be null
   return { success: true};
+}
+
+export async function addOrderDetails(
+  userId: string,
+  totalAmmount: number,
+  fullName: string,
+  phone: string,
+  street: string,
+  city: string,
+  state: string,
+  zip: string
+) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_SECRET_KEY!
+  );
+
+  // 1️⃣ Find existing pending order
+  const { data: order, error: orderError } = await supabase
+    .from("orders")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("status", "pending")
+    .maybeSingle();
+
+  if (orderError) {
+    throw new Error(orderError.message);
+  }
+
+  let orderId = order?.id;
+
+  // 3️⃣ Update shipping details
+  const { error: updateError } = await supabase
+    .from("orders")
+    .update({
+      full_name: fullName,
+      phone_number: phone,
+      street_address: street,
+      city: city,
+      state: state,
+      total_amount: totalAmmount,
+      zip: zip,
+    })
+    .eq("id", orderId);
+
+  if (updateError) {
+    throw new Error(updateError.message);
+  }
+
+  return { success: true, orderId };
+}
+
+export async function getOrdersByUserId(userId: string) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_SECRET_KEY!
+  );
+
+  // 1️⃣ Get all orders for the user
+  const { data: orders, error: ordersError } = await supabase
+    .from("orders")
+    .select(`
+      id,
+      status,
+      payment_status,
+      total_amount,
+      full_name,
+      phone_number,
+      street_address,
+      city,
+      state,
+      created_at,
+      order_items (
+        id,
+        quantity,
+        product:products (
+          id,
+          name,
+          price,
+          size,
+          color,
+          description,
+          pictures
+        )
+      )
+    `)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (ordersError) throw new Error(ordersError.message);
+  if (!orders) return [];
+
+  // 2️⃣ Normalize product object
+  const formattedOrders = orders.map((order: any) => ({
+    ...order,
+    order_items: order.order_items.map((item: any) => ({
+      ...item,
+      product: Array.isArray(item.product) ? item.product[0] : item.product,
+    })),
+  }));
+
+  return formattedOrders;
+}
+
+export async function updateOrderStatus(
+  orderId: string,
+  status: "pending" | "paid" | "shipped" | "delivered"
+) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_SECRET_KEY!
+  );
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: status,
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { success: true, orderId };
 }

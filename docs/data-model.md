@@ -18,11 +18,18 @@
 
 ### Orders
 
+* ID: Unique identifier (Primary Key)
+* User ID: Reference to the user who placed the order
 * Status: pending, paid, shipped, delivered — Current state of the order
 * Payment status: unpaid, paid, pending — Status of payment for the order
 * Total amount: Total price of the order
-* Address: Shipping address for the order
-* User ID: Reference to the user who placed the order
+* Full name: Name of the recipient for this specific order
+* Phone number: Contact number for delivery
+* Street address: Delivery street address
+* City: Delivery city
+* State: Delivery state/region
+* Paystack reference: Unique ID from Paystack for payment verification
+* Created at: Date and time of purchase
 
 ### Order Items
 
@@ -57,11 +64,31 @@ erDiagram
     }
 
     ORDERS {
-        string Status "Current state of the order (pending, paid, shipped, delivered)"
-        string Payment_status "Status of payment for the order (unpaid, paid, pending)"
-        float Total_amount "Total price of the order"
-        string Address "Shipping address for the order"
-        int User_ID "Reference to the user who placed the order"
+        int ID "Unique identifier for the order"
+
+int User_ID "Reference to the user who placed the order"
+
+string Status "Current state of the order (pending, paid, shipped, delivered)"
+
+string Payment_status "Status of payment for the order (unpaid, paid, pending)"
+
+float Total_amount "Total price of the order"
+
+string Full_Name "Full name of the person receiving the order"
+
+string Phone_Number "Contact number for delivery purposes"
+
+string Street_Address "Specific street name and house number for delivery"
+
+string City "City where the order is being shipped"
+
+string State "State or region for the delivery address"
+
+string Paystack_Reference "Unique reference code for Paystack payment verification"
+
+datetime Created_At "Timestamp of when the order was created"
+
+
     }
 
     ORDER_ITEMS {

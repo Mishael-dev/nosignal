@@ -65,17 +65,6 @@ const Cart = ({items}: {items: CartItem[]}) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border px-6 py-4">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Link href="/" className="text-lg font-semibold tracking-[0.2em] uppercase">
-            No Signal
-          </Link>
-          <Link href="/products" className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            Continue Shopping
-          </Link>
-        </div>
-      </header>
 
       <main className="mx-auto max-w-7xl px-6 py-10">
         <h1 className="mb-10 text-2xl font-medium">Cart ({items.length})</h1>
@@ -208,6 +197,8 @@ const Cart = ({items}: {items: CartItem[]}) => {
                 <button className="w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-80">
                   Checkout
                 </button>
+
+                
               </div>
             </div>
           </div>
