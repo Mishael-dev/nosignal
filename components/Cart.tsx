@@ -35,9 +35,7 @@ const Cart = ({items}: {items: CartItem[]}) => {
     await removeFromCart(userId, cartItemId)
     router.refresh()
   };
-
   
-
   const updateQuantity = async (orderItemId: string, newQuantity: number, currentQuantity: number) => {
     console.log("nq", newQuantity)
   try {
@@ -59,6 +57,8 @@ const Cart = ({items}: {items: CartItem[]}) => {
    await clearCartItems(userId)
    router.refresh();
   };
+
+  []
 
   const totalAmount = items.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
 
@@ -204,6 +204,8 @@ const Cart = ({items}: {items: CartItem[]}) => {
           </div>
         )}
       </main>
+
+      
     </div>
   );
 };

@@ -6,6 +6,7 @@ import QuantitySelector from "@/components/QuantitySelector";
 import {toast} from "sonner"
 import { addToCart } from "@/lib/db/order"
 import { useSession, signIn, signOut } from "next-auth/react";
+import SignInModal from "./SignInModal";
 
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 
@@ -21,8 +22,11 @@ export type Product = {
   created_at: string;
 };
 
+
 const ProductDetailCard = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const [signInOpen, setSignInOpen] = useState(false);
   
   const { data: session } = useSession();
 
@@ -78,16 +82,23 @@ const ProductDetailCard = ({ product }: { product: Product }) => {
 
             {/* Add to Cart */}
             <button
-              onClick={() =>
-    toast.promise(
-      addToCart(session?.user?.id!, product.id, quantity),
-      {
-        loading: "Adding to cart...",
-        success: `Added ${quantity}x ${product.name} (${product.size})`,
-        error: "Failed to add item"
-      }
-    )
+              onClick={() => {
+  if (!session?.user) {
+    setSignInOpen(true);
+    return;
   }
+
+  toast.promise(
+    addToCart(session?.user.id!, product.id, quantity),
+    {
+      loading: "Adding to cart...",
+      success: `Added ${quantity}x ${product.name} (${product.size})`,
+      error: "Failed to add item"
+    }
+  );
+}}
+
+                
               className="w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-white transition-opacity hover:opacity-80"
             >
               Add to Cart
@@ -104,6 +115,8 @@ const ProductDetailCard = ({ product }: { product: Product }) => {
             </div>
           </div>
         </div>
+        
+      <SignInModal open={signInOpen} onOpenChange={setSignInOpen} />
       </main>
   );
 };

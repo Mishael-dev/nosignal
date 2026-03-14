@@ -1,0 +1,130 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+/* ========================= */
+
+@import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap'); */
+
+@theme {
+  --color-background: hsl(0 0% 5%);
+  --color-foreground: hsl(0 0% 95%);
+  --color-card: hsl(0 0% 8%);
+  --color-card-foreground: hsl(0 0% 95%);
+  --color-popover: hsl(0 0% 8%);
+  --color-popover-foreground: hsl(0 0% 95%);
+  --color-primary: hsl(0 0% 95%);
+  --color-primary-foreground: hsl(0 0% 5%);
+  --color-secondary: hsl(0 0% 12%);
+  --color-secondary-foreground: hsl(0 0% 95%);
+  --color-muted: hsl(0 0% 15%);
+  --color-muted-foreground: hsl(0 0% 55%);
+  --color-accent: hsl(0 0% 15%);
+  --color-accent-foreground: hsl(0 0% 95%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(0 0% 18%);
+  --color-input: hsl(0 0% 18%);
+  --color-ring: hsl(0 0% 95%);
+  --radius: 0px;
+
+  --color-sidebar-background: hsl(0 0% 8%);
+  --color-sidebar-foreground: hsl(0 0% 85%);
+  --color-sidebar-primary: hsl(0 0% 95%);
+  --color-sidebar-primary-foreground: hsl(0 0% 5%);
+  --color-sidebar-accent: hsl(0 0% 15%);
+  --color-sidebar-accent-foreground: hsl(0 0% 95%);
+  --color-sidebar-border: hsl(0 0% 18%);
+  --color-sidebar-ring: hsl(0 0% 95%);
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+@layer components {
+  .luxury-btn {
+    @apply inline-flex items-center gap-2 px-8 py-4 text-xs uppercase tracking-[0.3em] border border-foreground bg-foreground text-background transition-all duration-500 hover:bg-transparent hover:text-foreground;
+  }
+  .luxury-btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-4 text-xs uppercase tracking-[0.3em] border border-foreground/30 bg-transparent text-foreground transition-all duration-500 hover:border-foreground hover:bg-foreground hover:text-background;
+  }
+  .luxury-btn-white {
+    @apply inline-flex items-center gap-2 px-8 py-4 text-xs uppercase tracking-[0.3em] border border-foreground bg-foreground text-background rounded-full transition-all duration-500 hover:bg-transparent hover:text-foreground;
+  }
+  .luxury-input {
+    @apply w-full border-b border-foreground/30 bg-transparent py-3 text-sm tracking-wider placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors;
+  }
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-24 py-20 md:py-32;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

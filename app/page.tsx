@@ -1,20 +1,22 @@
-"use client";
-import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import HeroSection from "@/components/landing-page/HeroSection";
+import PhilosophySection from "@/components/landing-page/PhilosophySection";
+import MarqueeSection from "@/components/landing-page/MarqueeSection";
+import NewArrivalsSection from "@/components/landing-page/NewArrivalsSection";
+import NewsletterSection from "@/components/landing-page/NewsletterSection";
+import FooterSection from "@/components/FooterSection";
+import CookieConsent from "@/components/CookieConsent";
 
-export default function Home() {
+const Index = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl">Sign In</h1>
-      <Button
-        variant={"outline"}
-        onClick={() => signIn("google", { redirectTo: "/protected/schema-visualizer" })}
-        size="lg"
-        className="flex justify-between mt-2"
-      >
-        With Google
-      </Button>
-    </div>
+   <main>
+     <HeroSection />
+    <PhilosophySection />
+      <MarqueeSection />
+      <NewArrivalsSection />
+      <NewsletterSection />
+      <CookieConsent />
+   </main>
   );
-}
+};
+
+export default Index;

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { updateOrderStatus } from "@/lib/db/order";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ShoppingBag } from "lucide-react";
 
 type OrderStatus = "pending" | "paid" | "shipped" | "delivered";
 
@@ -51,21 +52,6 @@ const Orders = ({orders}: {orders: Order[]}) => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border px-6 py-4">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Link href="/" className="text-lg font-semibold tracking-[0.2em] uppercase">
-            No Signal
-          </Link>
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Shop
-          </Link>
-        </div>
-      </header>
 
       <main className="mx-auto max-w-4xl px-6 py-10">
         <div className="mb-8 flex items-center gap-3">
@@ -74,10 +60,14 @@ const Orders = ({orders}: {orders: Order[]}) => {
         </div>
 
         {orders.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-muted-foreground">You haven't placed any orders yet.</p>
-            <Link href="/products" className="mt-4 inline-block text-sm underline underline-offset-4 hover:text-foreground">
-              Start Shopping
+          <div className="flex flex-col items-center gap-6 py-20">
+            <ShoppingBag className="h-16 w-16 text-muted-foreground/40" />
+            <p className="text-muted-foreground">Your cart is empty</p>
+            <Link
+              href="/products"
+              className="bg-foreground px-8 py-3 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-80"
+            >
+              Shop Now
             </Link>
           </div>
         ) : (

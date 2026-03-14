@@ -8,6 +8,7 @@ import Link from "next/link";
 import { addOrderDetails } from "@/lib/db/order";
 import { useSession } from "next-auth/react";
 import PaymentsButton from "./PaymentsButton";
+import { ShoppingBag } from "lucide-react";
 
 interface CartProduct {
   id: string;
@@ -90,9 +91,20 @@ const OrderCreate = ({orderItems}: {orderItems: CartItem[]}) => {
 
   return (
     <div className="min-h-screen bg-background">
-     
 
-      <main className="mx-auto max-w-7xl px-6 py-10">
+       {orderItems.length === 0 ? (
+          <div className="flex flex-col items-center gap-6 py-20">
+            <ShoppingBag className="h-16 w-16 text-muted-foreground/40" />
+            <p className="text-muted-foreground">Your cart is empty</p>
+            <Link
+              href="/products"
+              className="bg-foreground px-8 py-3 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-80"
+            >
+              Shop Now
+            </Link>
+          </div>
+        ) : (
+          <main className="mx-auto max-w-7xl px-6 py-10">
         {/* Step Indicator */}
         <div className="mb-10 flex items-center gap-3">
           <StepBadge number={1} label="Address" active={step === 1} completed={step === 2} />
@@ -182,6 +194,10 @@ const OrderCreate = ({orderItems}: {orderItems: CartItem[]}) => {
           </div>
         </div>
       </main>
+        )}
+     
+
+      
     </div>
   );
 };
