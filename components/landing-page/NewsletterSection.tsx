@@ -8,6 +8,7 @@ const NewsletterSection = () => {
   const [formData, setFormData] = useState({ firstName: '', email: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("who is your daddy ")
     e.preventDefault();
     await addNewsletterSubscriber(formData.firstName, formData.email);
     setSubmitted(true);

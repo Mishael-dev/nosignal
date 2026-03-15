@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
-import { Trash2, ArrowLeft, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag } from "lucide-react";
 import QuantitySelector from "@/components/QuantitySelector";
 import { removeFromCart, increaseCartProductQuantity, decreaseCartProductQuantity, clearCartItems} from "@/lib/db/order";
 import { useSession } from "next-auth/react";
@@ -194,9 +194,9 @@ const Cart = ({items}: {items: CartItem[]}) => {
                   <span>₦{totalAmount.toLocaleString("en-NG")}</span>
                 </div>
 
-                <button className="w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-80">
+                <Link href={"/orders/create"} className="flex items-center  justify-center w-full bg-foreground py-4 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-80">
                   Checkout
-                </button>
+                </Link>
 
                 
               </div>

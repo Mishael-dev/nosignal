@@ -381,9 +381,7 @@ function PaymentStep({
     const data = await res.json();
 
     if (data.success) {
-      alert("Payment Successful!");
     } else {
-      alert(data.message);
     }
   } catch (err) {
     console.error(err);

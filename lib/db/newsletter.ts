@@ -1,11 +1,12 @@
+"use server"
+
 import { createClient } from "@supabase/supabase-js";
 
 export async function addNewsletterSubscriber(
   firstName: string,
   email: string
 ) {
-
-    console.log("supabase url",  process.env.SUPABASE_SERVICE_SECRET_KEY!)
+    
   
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

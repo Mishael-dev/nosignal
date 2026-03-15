@@ -54,7 +54,7 @@ const FooterSection = () => {
 
         {/* Newsletter mini + currency */}
         <div className="mt-16 flex flex-col items-start justify-between gap-8 border-t border-neutral-800 pt-10 md:flex-row md:items-end">
-          <div>
+          {/* <div>
             <p className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 mb-3">
               Stay in the loop
             </p>
@@ -68,7 +68,7 @@ const FooterSection = () => {
                 Subscribe
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-6 text-[10px] tracking-[0.15em] uppercase text-neutral-600">
             <span>USD $ | NGN ₦</span>
