@@ -14,7 +14,6 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { ScanFace } from "lucide-react";
 import { signIn, signOut } from "next-auth/react";
-import { div } from "framer-motion/client";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -107,7 +106,6 @@ const Header = () => {
         >
           <ShoppingCart className="h-5 w-5" />
 
-          
         </Link>
         
         <button

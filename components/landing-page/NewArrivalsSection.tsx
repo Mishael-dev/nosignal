@@ -1,49 +1,16 @@
 "use client"
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import { Product } from "../ProductDetailCard";
+import { useRouter } from "next/navigation";
 
-const products = [
-  {
-    name: "Oversized Wool Coat",
-    price: "$890",
-    category: "Outerwear",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    name: "Structured Blazer",
-    price: "$1,200",
-    category: "Tailoring",
-    image: "https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    name: "Technical Trouser",
-    price: "$450",
-    category: "Bottoms",
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    name: "Cashmere Knit",
-    price: "$680",
-    category: "Knitwear",
-    image: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    name: "Silk Drape Shirt",
-    price: "$520",
-    category: "Tops",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    name: "Leather Tote",
-    price: "$1,400",
-    category: "Accessories",
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&q=80&w=1000",
-  },
-];
+const NewArrivalsSection = ({highlightedProducts}: {highlightedProducts: Product[]} ) => {
 
-const NewArrivalsSection = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter()
 
   return (
     <section id="new-arrivals" className="bg-black px-6 py-32 text-white md:px-12">
@@ -63,9 +30,9 @@ const NewArrivalsSection = () => {
         className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {products.map((product, index) => (
+        {highlightedProducts.map((product, index) => (
           <motion.div
-            key={product.name}
+            key={product.id}
             layout
             onClick={() => setActiveIndex(activeIndex === index ? null : index)}
             className="group relative flex-shrink-0 cursor-pointer"
@@ -76,7 +43,7 @@ const NewArrivalsSection = () => {
           >
             <div className="relative aspect-[3/4] overflow-hidden bg-neutral-900">
               <motion.img
-                src={product.image}
+                src={product.pictures[0]}
                 alt={product.name}
                 className="h-full w-full object-cover"
                 animate={{
@@ -105,7 +72,7 @@ const NewArrivalsSection = () => {
                         transition={{ delay: 0.15, duration: 0.4 }}
                         className="mb-1 text-[9px] tracking-[0.3em] uppercase text-neutral-400"
                       >
-                        {product.category}
+                        {product.size}
                       </motion.p>
                       <motion.h3
                         initial={{ opacity: 0, y: 10 }}
@@ -127,9 +94,11 @@ const NewArrivalsSection = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.4 }}
-                        className="border border-white px-6 py-2 text-[9px] tracking-[0.3em] uppercase transition-colors duration-300 hover:bg-white hover:text-black"
+                        onClick={() => router.push(`/product/${product.id}`)}
+                        className="border flex items-center gap-2 border-white px-6 py-2 text-[9px] tracking-[0.3em] uppercase transition-colors duration-300 hover:bg-white hover:text-black"
                       >
-                        Add to Bag
+                        View Product
+                        <ExternalLink size={10} className="" />
                       </motion.button>
                     </div>
                   </motion.div>

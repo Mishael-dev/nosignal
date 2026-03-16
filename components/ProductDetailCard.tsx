@@ -7,6 +7,8 @@ import {toast} from "sonner"
 import { addToCart } from "@/lib/db/order"
 import { useSession, signIn, signOut } from "next-auth/react";
 import SignInModal from "./SignInModal";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 
@@ -19,6 +21,7 @@ export type Product = {
   pictures: string[];
   size: ProductSize;
   stock_quantity: number;
+  is_highlighted: boolean;
   created_at: string;
 };
 
@@ -92,7 +95,11 @@ const ProductDetailCard = ({ product }: { product: Product }) => {
     addToCart(session?.user.id!, product.id, quantity),
     {
       loading: "Adding to cart...",
-      success: `Added ${quantity}x ${product.name} (${product.size})`,
+      success:  (
+      <Link className="flex items-center gap-2" href={`/cart`}>
+        Added <strong>{quantity}x</strong> {product.name} ({product.size}) <ExternalLink size={10} />
+      </Link>
+    ),
       error: "Failed to add item"
     }
   );
